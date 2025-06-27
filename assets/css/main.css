@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+:root {
+  font-family: "NebulaSans", sans-serif;
+}
+
+@theme {
+  /* Colors */
+  --color-primary: #0070b8;
+  --color-secondary: #008FEB;
+
+  /* Fonts */
+  --font-nebula: "NebulaSans", sans-serif;
+
+  /* Animations */
+  --animate-scrolling: scrolling 30s linear infinite;
+
+  @keyframes scrolling {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+@layer base {
+    html {
+      /* Default font */
+      font-family: var(--font-nebula);
+    }
+  }

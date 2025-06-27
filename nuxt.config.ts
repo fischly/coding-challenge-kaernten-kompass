@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/fonts', '@nuxt/image'],
+  css: ['@/assets/css/main.css'],
+  fonts: {
+    defaults: {
+      weights: [300, 400, 600, 700],
+    }
+  },
   app: {
     head: {
       title: 'Kärnten Kompass',
