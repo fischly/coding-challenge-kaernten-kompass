@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 
 :root {
   font-family: "NebulaSans", sans-serif;
@@ -11,6 +13,7 @@
 
   /* Fonts */
   --font-nebula: "NebulaSans", sans-serif;
+  --font-caveat: "Caveat";
 
   /* Animations */
   --animate-scrolling: scrolling 30s linear infinite;
@@ -32,3 +35,5 @@
       font-family: var(--font-nebula);
     }
   }
+
+  
