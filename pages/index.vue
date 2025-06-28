@@ -28,8 +28,8 @@
 							<div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
 						</div>
 					</template>
-				</Suspense>
-			</ClientOnly> -->
+</Suspense>
+</ClientOnly> -->
 		</div>
 	</section>
 
@@ -62,7 +62,7 @@
 				</p>
 			</div>
 
-			<EventList></EventList>
+			<EventPanel></EventPanel>
 		</div>
 
 

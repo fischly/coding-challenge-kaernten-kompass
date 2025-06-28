@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Event } from '@/data/types';
+import type { Event } from '~/data/types/Event';
 
 const props = defineProps<{
     event: Event;
@@ -22,16 +22,16 @@ const formatDateRange = (startDate: string, endDate: string) => {
 };
 
 const thumbnailImage = computed(() => {
-    return props.event.images[0].thumbnailUrl;
+    return props.event.images[0].url;
 });
 </script>
 
 <template>
-    <a :href="`/events/${event.id}`"
-        class="group block bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 border border-gray-100">
+    <NuxtLink :to="`/events/${event.id}`" class="group block bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 border border-gray-100">
+
         <!-- Image -->
         <div v-if="thumbnailImage" class="aspect-video overflow-hidden relative">
-            <img :src="thumbnailImage" :alt="event.name"
+            <NuxtImg :src="thumbnailImage" :alt="event.name"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 
             <!-- Gradient overlay -->
@@ -44,7 +44,7 @@ const thumbnailImage = computed(() => {
         <!-- Content -->
         <div class="p-6">
             <h3
-                class="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-3">
+                class="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-3">
                 {{ event.name }}
             </h3>
 
@@ -88,5 +88,5 @@ const thumbnailImage = computed(() => {
                 </svg>
             </div>
         </div>
-    </a>
+    </NuxtLink>
 </template>
