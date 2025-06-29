@@ -12,6 +12,11 @@ export default defineNuxtConfig({
       weights: [300, 400, 600, 700],
     }
   },
+  runtimeConfig: {
+    carinthiaApiToken: process.env.CARINTHIA_API_TOKEN,
+    carinthiaApiUrl: process.env.CARINTHIA_API_URL,
+    carinthiaApiCategoriesUrl: process.env.CARINTHIA_API_CATEGORIES_URL,
+  },
   app: {
     head: {
       title: 'Kärnten Kompass',
