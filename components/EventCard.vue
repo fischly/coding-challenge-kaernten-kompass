@@ -7,6 +7,9 @@ const props = defineProps<{
 
 
 const formatDate = (dateString: string) => {
+    if (!dateString) {
+        return 'Unbekannt';
+    }
     const date = new Date(dateString);
     return date.toLocaleDateString('de-DE', {
         day: '2-digit',
@@ -27,18 +30,25 @@ const thumbnailImage = computed(() => {
 </script>
 
 <template>
-    <NuxtLink :to="`/events/${event.id}`" class="group block bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 border border-gray-100">
+    <NuxtLink :to="`/events/${event.id}`"
+        class="group block bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 border border-gray-100">
 
         <!-- Image -->
         <div v-if="thumbnailImage" class="aspect-video overflow-hidden relative">
-            <NuxtImg :src="thumbnailImage" :alt="event.name"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <NuxtImg :src="thumbnailImage" :alt="event.name" :custom="true" v-slot="{ src, isLoaded, imgAttrs }">
+                <img v-if="isLoaded" :src="src" :alt="event.name"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    v-bind="imgAttrs" />
+                <div v-else class="w-full h-full bg-gray-200 animate-pulse"></div>
+            </NuxtImg>
 
             <!-- Gradient overlay -->
             <div
                 class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             </div>
-
+        </div>
+        <div v-else class="aspect-video overflow-hidden">
+            <div class="w-full h-full bg-gray-200"></div>
         </div>
 
         <!-- Content -->
@@ -67,16 +77,16 @@ const thumbnailImage = computed(() => {
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
 
-                {{ formatDateRange(event.startDate, event.endDate) }}
+                    {{ formatDateRange(event.startDate, event.endDate) }}
 
                 </p>
             </div>
 
             <!-- Categories -->
             <div v-if="event.categories.length > 0" class="mt-3 flex flex-wrap gap-1 justify-left">
-                <span v-for="category in event.categories" :key="category"
+                <span v-for="category in event.categories" :key="category.id"
                     class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">
-                    {{ category }}
+                    {{ category.name }}
                 </span>
             </div>
 

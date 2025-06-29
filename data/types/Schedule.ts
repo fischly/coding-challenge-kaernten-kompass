@@ -16,4 +16,7 @@ export interface Schedule {
   
   /** The repeat frequency in ISO 8601 format (e.g., "P1W" for weekly, "P1M" for monthly) */
   repeatFrequency?: string;
+  
+  /** Specifies which days of the week the event occurs. Should be schema.org day URLs */
+  byDay?: string | string[];
 }   

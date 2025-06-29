@@ -4,7 +4,7 @@
 
 <template>
 	<!-- Header Section-->
-	<section class="bg-gradient-to-br from-primary to-primary pt-16 pb-4">
+	<section class="bg-primary bg-gradient-to-t from-black/10 to-transparent pt-16 pb-8 relative">
 		<div class="mx-auto text-center">
 			<!-- Logo -->
 			<div class="mb-8 py-4 bg-blue-50 p-20 inline-block rounded-full">
@@ -15,25 +15,43 @@
 			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
 				Kärnten Kompass
 			</h1>
-			<p class="text-xl md:text-2xl text-white/90 mb-12">
+			<p class="text-xl md:text-2xl text-white/90">
 				Entdecke, was Kärnten bewegt.
 			</p>
 
-			<!-- <ClientOnly fallback-tag="span" fallback="Loading CLIENTONLY">
-				<Suspense>
-					<SlowComponent></SlowComponent>
 
-					<template #fallback>
-						<div class="flex justify-center items-center">
-							<div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-						</div>
-					</template>
-</Suspense>
-</ClientOnly> -->
+		</div>
+
+		<div
+			class="absolute w-12 h-12 lg:w-20 lg:h-20 left-1/12 lg:left-1/8 top-1/10 lg:top-1/3 -translate-y-1/2 opacity-30 animate-[randomRotate_15000ms_linear_infinite]">
+			<svg class="w-full h-full" width="9.54" height="11.645" version="1.1" viewBox="0 0 9.54 11.645"
+				xmlns="http://www.w3.org/2000/svg">
+				<g transform="matrix(.45868 -.053957 .053957 .45868 -43.659 -23.569)" stroke-linecap="square"
+					stroke-width="4">
+					<path
+						d="m93.167 68.845 11.651-4.5188c3.016-1.0855 4.1889 0.24292 2.9682 3.0125l-4.5188 11.962c-1.0154 2.3221-0.61725 1.8046-3.6328 3.0568l-10.854 4.2087c-3.2082 1.1594-4.3703-0.2277-3.1011-3.4555l4.5188-11.386c0.86392-1.7903 0.95119-2.0956 2.9682-2.8796z"
+						fill="#fff" />
+					<circle cx="96.755" cy="75.446" r="3.1027" fill="#0070b8" />
+				</g>
+			</svg>
+		</div>
+
+		<div
+			class="absolute w-16 h-16 lg:w-24 lg:h-24 right-1/12 lg:right-1/10 2xl:right-1/8 top-3/4 lg:top-2/3 -translate-y-1/2 opacity-30 animate-[randomRotate_20000ms_linear_infinite_reverse]">
+			<svg class="w-full h-full" width="9.54" height="11.645" version="1.1" viewBox="0 0 9.54 11.645"
+				xmlns="http://www.w3.org/2000/svg">
+				<g transform="matrix(.45868 -.053957 .053957 .45868 -43.659 -23.569)" stroke-linecap="square"
+					stroke-width="4">
+					<path
+						d="m93.167 68.845 11.651-4.5188c3.016-1.0855 4.1889 0.24292 2.9682 3.0125l-4.5188 11.962c-1.0154 2.3221-0.61725 1.8046-3.6328 3.0568l-10.854 4.2087c-3.2082 1.1594-4.3703-0.2277-3.1011-3.4555l4.5188-11.386c0.86392-1.7903 0.95119-2.0956 2.9682-2.8796z"
+						fill="#fff" />
+					<circle cx="96.755" cy="75.446" r="3.1027" fill="#0070b8" />
+				</g>
+			</svg>
 		</div>
 	</section>
 
-	<section class="mt-6">
+	<section class="pt-6 bg-gradient-to-b from-black/20 via-black/10 via-5% to-transparent">
 		<ImageCarousel></ImageCarousel>
 	</section>
 

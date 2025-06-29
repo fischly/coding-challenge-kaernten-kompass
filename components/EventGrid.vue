@@ -1,49 +1,44 @@
 <script lang="ts" setup>
-import parse from '@/data/parse';
-
+import type { Event } from '@/data/types/Event';
 const nuxtApp = useNuxtApp();
 
-const EVENTS_PER_PAGE = 25;
+// Events per page to fetch and display
+const EVENTS_PER_PAGE = 27;
 
+// The page the user currently is on
 const currentPage = useState('currentPage', () => 1);
 
+// Props serving as event filters
 const props = defineProps<{
     filterSearchText: string;
     filterSelectedCategory: string;
+    filterDateRange: any; // { start?: string, end?: string } | null;
 }>();
 
-// const eventsState = useState('events', () => {
-//     console.log('INITIATING EVENT STATE AT EVENT LIST');
-//     return events;
-// });
+// Computed properties to build the query string for the API
+const queryString = computed(() => {
+    let query = `/api/events?page=${currentPage.value}&pageSize=${EVENTS_PER_PAGE}`;
+    if (props.filterSearchText) query += `&searchText=${props.filterSearchText}`;
+    if (props.filterSelectedCategory) query += `&category=${props.filterSelectedCategory}`;
+    if (props.filterDateRange?.start) query += `&startDate=${props.filterDateRange.start}`;
+    if (props.filterDateRange?.end) query += `&endDate=${props.filterDateRange.end}`;
+    return query;
+});
 
-const { data, status, error, refresh, clear } = await useFetch(() => `http://localhost:4000/data?page=${currentPage.value}&searchText=${props.filterSearchText}&selectedCategory=${props.filterSelectedCategory}`, {
-    key: 'events',// computed(() => `events-${currentPage.value}`),
-    // key: computed(() => `events-${currentPage.value}`),
+
+// Fetch events from the API
+const { data, status, error, refresh, clear } = await useFetch<{ events: Event[], meta: any }>(() => queryString.value, {
+    key: 'events',
     server: false,
     lazy: true,
-    onRequest: (request) => {
-        console.log('REQUEST', request);
-    },
-    onResponse: (response) => {
-        console.log('RESPONSE', response);
-    },
-    onResponseError: (error) => {
-        console.log('RESPONSE ERROR', error);
-    },
-    onRequestError: (error) => {
-        console.log('REQUEST ERROR', error);
-    },
-
-    transform: (data: any) => {
-        return parse(data);
-    },
+    method: 'GET',
     getCachedData: (key) => {
         console.log('GET CACHED DATA', key);
         return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
     }
 });
 
+// Computed properties to display the events, total results, and total pages
 const events = computed(() => data.value?.events ?? []);
 const totalResults = computed(() => data.value?.meta?.total ?? 0);
 const totalPages = computed(() => data.value?.meta?.pages ?? 0);
@@ -90,35 +85,22 @@ const getPageNumbers = () => {
 const pageNumbers = computed(() => getPageNumbers());
 
 const goToPage = (page: number) => {
-    clear();
+    clear(); // Clear the current request, if any
     currentPage.value = page;
-    refreshNuxtData(`events`);
+    refreshNuxtData(`events`); // Refresh the data (i.e., trigger a re-fetch)
 };
-
 </script>
 
 <template>
-    <pre>STATUS: {{ status }}</pre>
     <div v-if="status === 'pending'">
         <EventGridSkeletton></EventGridSkeletton>
     </div>
     <div v-else>
         <!-- Results Count -->
-        <div class="mb-6 flex justify-between items-center">
-            <p class="text-gray-600">
-                <!-- {filteredEvents.length} {filteredEvents.length === 1 ? 'Veranstaltung' : 'Veranstaltungen'} gefunden -->
-                {{ events.length }} <span v-if="events.length === 1">Veranstaltung</span>
-                <span v-else>Veranstaltungen</span> gefunden
-
-                <span v-if="totalPages > 1">
-                    (Seite {{ currentPage }} von {{ totalPages }})
-                </span>
-            </p>
-
+        <div class="mb-6 flex justify-end items-center">
             <!-- Page size info  -->
             <p v-if="totalResults > EVENTS_PER_PAGE" class="text-sm text-gray-500">
-                <!-- TODO: fix this -->
-                {{ (currentPage - 1) * EVENTS_PER_PAGE + 1 }}-{{ currentPage * EVENTS_PER_PAGE }} von {{ totalResults }}
+                {{ (currentPage - 1) * EVENTS_PER_PAGE + 1 }}-{{ Math.min(currentPage * EVENTS_PER_PAGE, totalResults) }} von {{ totalResults }}
             </p>
         </div>
 
@@ -168,7 +150,4 @@ const goToPage = (page: number) => {
             </button>
         </div>
     </div>
-
-    <pre>{{ status }}</pre>
-    <pre>{{ error }}</pre>
 </template>

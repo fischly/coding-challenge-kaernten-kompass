@@ -1,3 +1,4 @@
+import type { Category } from "./Category";
 import type { Image } from "./Image";
 import type { Organizer } from "./Organizer";
 import type { Schedule } from "./Schedule";
@@ -8,7 +9,7 @@ export interface Event {
     slug: string;
 
     description: string;
-    categories: string[];
+    categories: Category[];
     location: string;
     
     startDate: string;

@@ -16,7 +16,7 @@
   --font-caveat: "Caveat";
 
   /* Animations */
-  --animate-scrolling: scrolling 30s linear infinite;
+  --animate-scrolling: scrolling 60s linear infinite;
 
   @keyframes scrolling {
     0% {
@@ -25,6 +25,27 @@
 
     100% {
       transform: translateX(-100%);
+    }
+  }
+
+  @keyframes randomRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(45deg);
+    }
+    40% {
+      transform: rotate(120deg);
+    }
+    65% {
+      transform: rotate(240deg);
+    }
+    85% {
+      transform: rotate(315deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 }
