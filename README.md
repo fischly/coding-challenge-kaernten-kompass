@@ -1,6 +1,6 @@
 # Kärnten Kompass (Pixelpoint Coding Challenge)
 
-Coding challenge for [pixelpoint.at](pixelpoint.at).
+Coding challenge for [pixelpoint.at](https://pixelpoint.at).
 
 For more information, please have a look at the Impressum ([https://pixelpoint.fischly.dev/impressum](https://pixelpoint.fischly.dev/impressum)).
 
